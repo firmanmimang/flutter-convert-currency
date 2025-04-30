@@ -46,3 +46,4 @@ app.*.map.json
 
 .env
 catatan.txt
+upload-keystore.jks

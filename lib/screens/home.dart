@@ -1,5 +1,5 @@
-import 'package:currency_converter/components/anyToAny.dart';
-import 'package:currency_converter/components/usdToAny.dart';
+import 'package:currency_converter/components/any_to_any.dart';
+import 'package:currency_converter/components/usd_to_any.dart';
 import 'package:currency_converter/data/contants.dart';
 import 'package:currency_converter/data/notifiers.dart';
 import 'package:currency_converter/functions/fetchrates.dart';
@@ -75,6 +75,9 @@ class _HomeState extends State<Home> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 }
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
                 return Center(
                   child: FutureBuilder<Map>(
                     future: allCurrencies,
@@ -82,6 +85,11 @@ class _HomeState extends State<Home> {
                       if (currSnapshot.connectionState ==
                           ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
+                      }
+                      if (currSnapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${currSnapshot.error}'),
+                        );
                       }
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
